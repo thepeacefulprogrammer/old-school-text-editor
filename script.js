@@ -40,12 +40,29 @@ editor.addEventListener("keydown", (e) => {
 		e.preventDefault();
 		const start = editor.selectionStart;
 		const end = editor.selectionEnd;
-		const spaces = "    ";
+		const spaces = "  "; // Two spaces for indentation
 
 		// Set textarea value to: text before caret + spaces + text after caret
 		editor.value = editor.value.substring(0, start) + spaces + editor.value.substring(end);
 
 		// Move caret
 		editor.selectionStart = editor.selectionEnd = start + spaces.length;
+	}
+});
+
+// Backup to file with F2
+document.addEventListener("keydown", (e) => {
+	if (e.key === "F2") {
+		e.preventDefault();
+		const text = editor.value;
+		const blob = new Blob([text], { type: "text/plain" });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download = "backup.txt";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
 	}
 });
