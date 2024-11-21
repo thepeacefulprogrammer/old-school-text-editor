@@ -28,3 +28,7 @@ html {
   box-sizing: border-box;
   overflow: hidden;
 }
+
+#editor:hover {
+  cursor: none;
+}
